@@ -1,0 +1,13 @@
+.workBtnCont {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+
+@media screen and (min-width:700px) {
+    .workBtnCont {
+        flex-direction: column;
+    }
+}
