@@ -1,4 +1,6 @@
+// Home.jsx
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Navbar from '../../Components/Navbar/Navbar';
 import Footer from '../../Components/Footer/Footer';
 
@@ -10,7 +12,7 @@ const Home = () => {
         <img
           src="https://c.ndtvimg.com/2018-10/0nbugga8_work_625x300_12_October_18.png"
           alt="Centered Image"
-          className="w-full mx-auto slide-in"  // Removed max-w
+          className="w-full mx-auto slide-in"
         />
         <div className="text-center">
           <p className="text-lg font-bold mt-4">
@@ -20,8 +22,8 @@ const Home = () => {
             Discover the Ultimate Hub for Your Startup Dreams - CrowdUpss, your One-Stop Shop for All Things Entrepreneurial!
           </p>
           <div className="flex justify-center mt-4">
-            <button className="bg-blue-500 text-white px-4 py-2 rounded mr-4">Login</button>
-            <button className="bg-blue-500 text-white px-4 py-2 rounded">Sign Up</button>
+            <Link to="/login" className="bg-blue-500 text-white px-4 py-2 rounded mr-4">Login</Link>
+            <Link to="/signup" className="bg-blue-500 text-white px-4 py-2 rounded">Sign Up</Link>
           </div>
         </div>
       </div>
@@ -31,3 +33,4 @@ const Home = () => {
 };
 
 export default Home;
+
