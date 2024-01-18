@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import RegistrationForm from './RegistrationForm/RegistrationForm.jsx';
+import Footer from '../../Components/Footer/Footer.jsx';
 
 const EventsPage = () => {
   const [activeSection, setActiveSection] = useState('events');
   const [activeCategory, setActiveCategory] = useState('upcoming');
+  const [showRegistrationForm, setShowRegistrationForm] = useState(false);
 
   const handleEditProfile = () => {
     console.log('Editing profile...');
@@ -12,8 +15,33 @@ const EventsPage = () => {
     setActiveCategory(category);
   };
 
+  const handleRegisterClick = () => {
+    setShowRegistrationForm(true);
+  };
+
+  const handleCloseRegistrationForm = () => {
+    setShowRegistrationForm(false);
+  };
+
+  const navSections = [
+    { id: 'messaging', label: 'Messaging', icon: '✉️' },
+    { id: 'community', label: 'Community', icon: '👥' },
+    { id: 'resources', label: 'Resources', icon: '📚' },
+    { id: 'notification', label: 'Notification', icon: '🔔' },
+    { id: 'mvp', label: 'MVP', icon: '🏆' },
+    { id: 'events', label: 'Events', icon: '📅' },
+    { id: 'profile', label: 'Profile', icon: '👤' },
+  ];
+
+  const eventDetails = {
+    name: 'Tech Conference 2024',
+    description: 'An exciting conference showcasing the latest in technology.',
+    type: 'Conference',
+    teamSize: 'Varies',
+  };
+
   return (
-    <div>
+    <>
       <nav className="bg-gray-800 p-4">
         <div className="container mx-auto flex justify-between items-center">
           <a href="/">
@@ -27,70 +55,31 @@ const EventsPage = () => {
             <input
               type="text"
               placeholder="Search for people"
-              className="border border-gray-300 p-2 rounded-md w-64"
+              className="border border-gray-300 p-2 rounded-md w-48 md:w-64"
             />
             <button className="ml-2">Search</button>
           </div>
-          <div className="flex space-x-4">
-            {/* Existing sections */}
+          <div className="flex items-center space-x-4 md:hidden">
             <div
-              className={`text-white cursor-pointer flex items-center ${
-                activeSection === 'messaging' && 'font-bold'
-              }`}
-              onClick={() => setActiveSection('messaging')}
+              className="text-white cursor-pointer flex items-center"
+              onClick={() => {}}
             >
-              <i className="fas fa-envelope-open-text text-xl mr-2"></i>
-              Messaging
+              <i className="fas fa-bars text-xl"></i>
             </div>
-            <div
-              className={`text-white cursor-pointer flex items-center ${
-                activeSection === 'community' && 'font-bold'
-              }`}
-              onClick={() => setActiveSection('community')}
-            >
-              <i className="fas fa-users text-xl mr-2"></i>
-              Community
-            </div>
-            <div
-              className={`text-white cursor-pointer flex items-center ${
-                activeSection === 'resources' && 'font-bold'
-              }`}
-              onClick={() => setActiveSection('resources')}
-            >
-              <i className="fas fa-book text-xl mr-2"></i>
-              Resources
-            </div>
-            <div
-              className={`text-white cursor-pointer flex items-center ${
-                activeSection === 'notification' && 'font-bold'
-              }`}
-              onClick={() => setActiveSection('notification')}
-            >
-              <i className="fas fa-bell text-xl mr-2"></i>
-              Notification
-            </div>
-            <div
-              className={`text-white cursor-pointer flex items-center ${
-                activeSection === 'mvp' && 'font-bold'
-              }`}
-              onClick={() => setActiveSection('mvp')}
-            >
-              <i className="fas fa-trophy text-xl mr-2"></i>
-              MVP
-            </div>
-
-            {/* New "Events" section */}
-            <div
-              className={`text-white cursor-pointer flex items-center ${
-                activeSection === 'events' && 'font-bold'
-              }`}
-              onClick={() => setActiveSection('events')}
-            >
-              <i className="fas fa-calendar-alt text-xl mr-2"></i>
-              Events
-            </div>
-
-            {/* Profile section */}
+          </div>
+          <div className="hidden md:flex space-x-4">
+            {navSections.map((section) => (
+              <div
+                key={section.id}
+                className={`text-white cursor-pointer flex items-center ${
+                  activeSection === section.id && 'font-bold'
+                }`}
+                onClick={() => setActiveSection(section.id)}
+              >
+                {section.icon}
+                <span className="ml-2">{section.label}</span>
+              </div>
+            ))}
             <div className="flex items-center" onClick={handleEditProfile}>
               <img
                 src="https://placekitten.com/40/40"
@@ -103,66 +92,33 @@ const EventsPage = () => {
         </div>
       </nav>
 
-      {/* Buttons for Event Categories */}
-      <div className="bg-gray-200 p-2 flex justify-center">
-        <button
-          className={`mx-2 p-2 cursor-pointer ${
-            activeCategory === 'upcoming' && 'bg-gray-400'
-          }`}
-          onClick={() => handleCategoryClick('upcoming')}
-        >
-          Upcoming
-        </button>
-        <button
-          className={`mx-2 p-2 cursor-pointer ${
-            activeCategory === 'ongoing' && 'bg-gray-400'
-          }`}
-          onClick={() => handleCategoryClick('ongoing')}
-        >
-          Ongoing
-        </button>
-        <button
-          className={`mx-2 p-2 cursor-pointer ${
-            activeCategory === 'passed' && 'bg-gray-400'
-          }`}
-          onClick={() => handleCategoryClick('passed')}
-        >
-          Passed
-        </button>
-        <button
-          className={`mx-2 p-2 cursor-pointer ${
-            activeCategory === 'myevents' && 'bg-gray-400'
-          }`}
-          onClick={() => handleCategoryClick('myevents')}
-        >
-          My Events
-        </button>
+      <div className="bg-gray-200 p-2 flex flex-wrap justify-center">
+        {/* ... (existing code) */}
       </div>
 
-      {/* Event Details Section */}
       <div className="p-4">
         <div>
-          <p className="text-xl font-bold">Name of the Event:</p>
-          <p>Events:</p>
-          <p>Type:</p>
-          <p>Team Size:</p>
+          <p className="text-xl font-bold">Name of the Event: {eventDetails.name}</p>
+          <p>Events: {eventDetails.description}</p>
+          <p>Type: {eventDetails.type}</p>
+          <p>Team Size: {eventDetails.teamSize}</p>
         </div>
       </div>
-{/* Register Button */}
-<div className="p-4 text-right">
-        <button className="bg-blue-500 text-white px-4 py-2 rounded">
+
+      <div className="p-4 flex flex-col md:flex-row justify-center md:justify-end items-center">
+        <button className="bg-blue-500 text-white px-4 py-2 rounded mb-2 md:mb-0 md:mr-2" onClick={handleRegisterClick}>
           Register
         </button>
-        </div>
-      {/* Read More Button */}
-      <div className="p-4 text-right">
         <button className="bg-gray-500 text-white px-1 py-2 rounded">
           Read More
         </button>
       </div>
-    </div>
+
+      {showRegistrationForm && <RegistrationForm onClose={handleCloseRegistrationForm} />}
+
+      <Footer />
+    </>
   );
 };
 
 export default EventsPage;
-
